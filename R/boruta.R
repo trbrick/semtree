@@ -163,3 +163,13 @@ boruta <- function(model,
   return(vim)
 }
 
+plot.boruta = function(vim, ...) {
+  # TODO: Make sure dplyr is loaded.
+  decisionList = vim$details
+  impHistory = vim$impHistory
+  impHistory <- impHistory |>
+                tidyr::pivot_longer(everything()) |> 
+                dplyr::left_join(data.frame(decisionList), by=join_by("name"=="predictor")) |>
+                dplyr::mutate(decision = case_when(is.na(decision)~"Shadow", .default=decision))
+  ggplot2::ggplot(impHistory, aes(x=stats::reorder(name, value), y=value, color=decision)) + ggplot2::geom_boxplot()
+}
