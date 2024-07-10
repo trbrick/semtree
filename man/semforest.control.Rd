@@ -12,7 +12,8 @@ semforest.control(
   sampling = "subsample",
   control = NA,
   mtry = 2,
-  remove_dead_trees = TRUE
+  remove_dead_trees = TRUE,
+  ...
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ semforest.control(
 \item{mtry}{Number of subsampled covariates at each node.}
 
 \item{remove_dead_trees}{Remove trees from forest that had runtime errors}
+
+\item{...}{Additional arguments to semtree.control() if control is NA.}
 }
 \description{
 A SEM Forest control object to tune parameters of the forest learning
